@@ -43,7 +43,7 @@ server/build/
 client/.vite/
 
 # NPM
-package-lock.json
+npm-debug.log*
 
 # Railway
 .railway/
