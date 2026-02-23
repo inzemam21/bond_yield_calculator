@@ -42,10 +42,29 @@ export function useBondCalculator(): UseBondCalculatorReturn {
 
             const json = await response.json() as ApiResponse<BondResult>;
 
-            if (!response.ok || !json.success) {
-                // Backend class-validator may return an array of messages
-                const errorMsgs = Array.isArray(json.message) ? json.message : [json.error || 'Server error'];
+            if (!response.ok) {
+                // Backend class-validator natively returns 400 Bad Request in this shape:
+                // { "message": ["error 1"], "error": "Bad Request", "statusCode": 400 }
+                // And our custom HttpFilter might not be catching validation errors yet, 
+                // hence there is no 'success: false' wrapper.
+                let errorMsgs: string[] = [];
+                if (Array.isArray(json.message)) {
+                    errorMsgs = json.message as string[];
+                } else if (typeof json.message === 'string') {
+                    errorMsgs = [json.message];
+                } else if (typeof json.error === 'string') {
+                    errorMsgs = [json.error];
+                } else {
+                    errorMsgs = ['Server error'];
+                }
+
                 setErrors(errorMsgs);
+                return;
+            }
+
+            if (!json.success) {
+                // If it IS wrapped in our ApiResponse but is not successful
+                setErrors([json.message as unknown as string || 'Server error']);
                 return;
             }
 
