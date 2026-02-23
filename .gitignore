@@ -45,5 +45,5 @@ client/.vite/
 # NPM
 npm-debug.log*
 
-# Railway
-.railway/
+# Render
+.render/

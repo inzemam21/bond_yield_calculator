@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: bond-yield-calculator
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    numInstances: 1
+    region: oregon # Render default US region
+    envVars:
+      - key: PORT
+        value: 3000
+    healthCheckPath: /api/bond/calculate
