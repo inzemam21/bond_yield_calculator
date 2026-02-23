@@ -45,5 +45,5 @@ client/.vite/
 # NPM
 npm-debug.log*
 
-# Render
-.render/
+# Fly.io
+.fly/
