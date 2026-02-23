@@ -2,6 +2,8 @@
 
 A full-stack financial application that computes bond yield metrics and generates cash-flow schedules.
 
+**🟢 Live Demo:** [https://bond-yield-calculator.fly.dev/](https://bond-yield-calculator.fly.dev/)
+
 ## Tech Stack
 
 | Layer    | Technology              |
